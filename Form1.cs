@@ -2,6 +2,7 @@ namespace Program
 {
     public partial class Form1 : Form
     {
+        Graph graph;
         public Form1()
         {
             InitializeComponent();
@@ -14,7 +15,7 @@ namespace Program
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show(graph.GetGraph());
         }
     }
 }

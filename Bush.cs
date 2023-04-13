@@ -8,31 +8,19 @@ namespace Program
 {
     internal class Bush
     {
-        private int name;
-        private List<int> neigh;
-        public char Name { get; }
-        public string Neigh {
-            get
-            {
-                string res = String.Empty;
-                foreach(var item in neigh)
-                {
-                    res += item.ToString() + ", ";
-                }
-                res = res[..^2];
-                return res;
-            }
-        }
+        public int Name;
+        public List<int> Neigh;
 
         public Bush(int name, List<int> neigh)
         {
-            this.name = name;
-            this.neigh = neigh;
+            Name = name;
+            Neigh = neigh;
         }
-        public Bush(int name, int n)
+        
+        public Bush(int name)
         {
-            this.name = name;
-            this.neigh = new List<int> { n };
+            Name = name;
+            Neigh = new List<int> { };
         }
     }
 }
