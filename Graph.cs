@@ -8,35 +8,35 @@ using System.Xml.Linq;
 
 namespace Program
 {
-    internal class Graph
+    internal class Graph<T>
     {
-        private List<Bush> Edges;
+        private List<Bush<T>> Edges;
 
         public Graph()
         {
-            Edges = new List<Bush>(20);
+            Edges = new List<Bush<T>>(20);
         }
 
         public string GetGraph()
         {
             string res = String.Empty;
-            foreach(Bush n in Edges)
+            foreach(Bush<T> n in Edges)
             {
                 res += n.Name.ToString() + ": ";
-                foreach(int i in n.Neigh)
+                foreach(Bush<T> i in n.Neigh)
                 {
-                    res += i.ToString() + ", ";
+                    res += i.Name.ToString() + ", ";
                 }
                 res = res[..^2];
                 res += "\n";
             }
             return res;
         }
-        public void AddNode(Bush x) 
+        public void AddNode(Bush<T> x) 
         {
             foreach (var edge in Edges)
             {
-                if (edge.Name == x.Name)
+                if (edge.Name.Equals(x.Name))
                 {
                     MessageBox.Show("Такая вершина уже существует");
                     return;
@@ -45,19 +45,39 @@ namespace Program
             Edges.Add(x);
         }
 
-        public void AddNode(int name, List<int> edges) 
+        public void AddNode(T name, List<Bush<T>> edges) 
         {
             foreach (var edge in Edges)
             {
-                if (edge.Name == name)
+                if (edge.Name.Equals(name))
                 {
                     MessageBox.Show("Такая вершина уже существует");
                     return;
                 }
             }
-            Edges.Add(new Bush(name, edges));
+            Edges.Add(new Bush<T>(name, edges));
         }
-        
+
+        public void AddEdge(Bush<T> x, Bush<T> y)
+        {
+            int cntVortex = 0;
+            foreach (var node in Edges)
+            {
+                if (cntVortex == 2) { break; }
+                else if (node.Name.Equals(x.Name))
+                {
+                    node.Neigh.Add(y);
+                    cntVortex++;
+                }
+                else if (node.Name.Equals(y.Name))
+                {
+                    cntVortex++;
+                }
+            }
+            if (cntVortex != 2) { MessageBox.Show("Одна из вершин не существует"); }
+        }
+
+
 
     }
 }

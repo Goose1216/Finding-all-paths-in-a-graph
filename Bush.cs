@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Program
 {
-    internal class Bush
+    internal class Bush<T>
     {
-        public int Name;
-        public List<int> Neigh;
+        public T Name;
+        public List<Bush<T>> Neigh;
 
-        public Bush(int name, List<int> neigh)
+        public Bush(T name, List<Bush<T>> neigh)
         {
             Name = name;
             Neigh = neigh;
         }
         
-        public Bush(int name)
+        public Bush(T name)
         {
             Name = name;
-            Neigh = new List<int> { };
+            Neigh = new List<Bush<T>> { };
         }
     }
 }
