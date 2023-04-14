@@ -35,7 +35,7 @@ namespace Program
 
         private void button1_Click(object sender, EventArgs e)
         {
-            graph.DepthTravel(6);
+            graph.BreadthTravel(2);
             MessageBox.Show(graph.GetGraph());
         }
     }

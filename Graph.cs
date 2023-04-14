@@ -32,6 +32,7 @@ namespace Program
             }
             return res;
         }
+
         public void AddNode(Bush<T> x) 
         {
             foreach (var edge in Edges)
@@ -106,7 +107,7 @@ namespace Program
                     IsExists = true;
                     if (node.Neigh.Count == 0)
                     {
-                        MessageBox.Show("Конечная вершина");
+                        MessageBox.Show("У вершины нет соседей");
                         return;
                     }
                     _DepthTravel(node, tabu);
@@ -118,5 +119,35 @@ namespace Program
             }
             
         }
+        public void _BreadthTravel(Bush<T> node, List<T> internals)
+        {
+            internals.Add(node.Name);
+            var externals = new List<Bush<T>>(); // cоседи
+            foreach(Bush<T> vortex in node.Neigh)
+            {
+                if (!internals.Contains(vortex.Name))
+                {
+                    externals.Add(vortex);
+                    MessageBox.Show(string.Join("-", internals) + "-" + vortex.Name);
+                }
+            }
+            foreach( Bush<T> vortex in externals) { _BreadthTravel(vortex, internals); }
+        }
+
+        public void BreadthTravel(T name) // обход в ширину
+        {
+            bool IsExists = false;
+            var internals = new List<T>(); // пройденные вершины
+            foreach(var node in Edges)
+            {
+                if (node.Name.Equals(name))
+                {
+                    IsExists = true;
+                    if (node.Neigh.Count == 0) { MessageBox.Show("У вершины нет соседей"); }
+                    _BreadthTravel(node, internals);
+                }
+            }
+            if (!IsExists) { MessageBox.Show("Такой вершины не существует"); }
+        } 
     }
 }
