@@ -3,6 +3,7 @@ namespace Program
     public partial class Form1 : Form
     {
         Graph<int> graph;
+        Graphics g;
         public Form1()
         {
             InitializeComponent();
@@ -35,8 +36,18 @@ namespace Program
 
         private void button1_Click(object sender, EventArgs e)
         {
-            graph.BreadthTravel(2);
-            MessageBox.Show(graph.GetGraph());
+            g = CreateGraphics();
+            g.DrawEllipse(Pens.Black,100, 300, 400, 400);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
