@@ -31,11 +31,11 @@ namespace Program
             graph.AddEdge(a, e1);
             graph.AddEdge(a, f);
             graph.AddEdge(f, a);
-            //graph.AddEdge(a, o);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            graph.DepthTravel(6);
             MessageBox.Show(graph.GetGraph());
         }
     }

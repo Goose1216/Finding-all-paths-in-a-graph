@@ -77,7 +77,46 @@ namespace Program
             if (cntVortex != 2) { MessageBox.Show("Одна из вершин не существует"); }
         }
 
+        public void _DepthTravel(Bush<T> node, List<T> tabu)
+        {
+            foreach(var vortex in node.Neigh)
+            {
+                if (!tabu.Contains(vortex.Name))
+                {
+                    tabu.Add(vortex.Name);
+                    _DepthTravel(vortex, tabu);
+                    tabu.Remove(vortex.Name);
+                }
+            }
+            if (tabu.Count > 1)
+            {
+                MessageBox.Show(string.Join("-", tabu));
+            }
+        }
 
-
+        public void DepthTravel(T name) // Обход в глубину
+        {
+            var tabu = new List<T> { name };
+            string res = String.Empty;
+            bool IsExists = false;
+            foreach (var node in Edges)
+            {
+                if (node.Name.Equals(name))
+                {
+                    IsExists = true;
+                    if (node.Neigh.Count == 0)
+                    {
+                        MessageBox.Show("Конечная вершина");
+                        return;
+                    }
+                    _DepthTravel(node, tabu);
+                }
+            }
+            if (!IsExists)
+            {
+                MessageBox.Show("Такой вершины не существует");
+            }
+            
+        }
     }
 }
