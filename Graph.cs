@@ -12,6 +12,8 @@ namespace Program
     internal class Graph<T>
     {
         private List<Bush<T>> Edges;
+        private Queue<Bush<T>> nodes = new Queue<Bush<T>>();
+        private Queue<List<T>> paths = new Queue<List<T>>(); 
         public string res;
 
         public Graph()
@@ -138,37 +140,22 @@ namespace Program
             
         }
 
-       private void GetPath(Bush<T> node, List<T> internals)
-        {
-            foreach (var vortex in node.Neigh)
-            {
-                if (internals.Count == 0)
-                {
-                    res += node.Name.ToString() + '-' + vortex.Name + "\r\n";
-                }
-                else if (!internals.Contains(vortex.Name))
-                {
-                    res += String.Join('-', internals) + '-' + node.Name + '-' + vortex.Name + "\r\n";
-                }
-            }
-        }
-
         public void _BreadthTravel(Bush<T> node, List<T> internals)
         {
-            internals.Add(node.Name);
-            var externals = new List<Bush<T>>();
+            List<T> path = new List<T>(internals);
+            path.Add(node.Name);
             foreach(var vortex in node.Neigh)
             {
-                if (!internals.Contains(vortex.Name))
+                if (!path.Contains(vortex.Name))
                 {
-                    externals.Add(vortex);
-                    GetPath(vortex, internals);
+                    nodes.Enqueue(vortex);
+                    paths.Enqueue(path);
+                    res += String.Join('-', path) + '-' + vortex.Name + "\r\n";
                 }
             }
-            foreach (var vortex in externals)
+            while (nodes.Count > 0)
             {
-               _BreadthTravel(vortex, internals);
-                internals.Remove(vortex.Name);
+                _BreadthTravel(nodes.Dequeue(), paths.Dequeue());
             }
         }
             
@@ -183,7 +170,6 @@ namespace Program
                 {
                     IsExists = true;
                     if (node.Neigh.Count == 0) { MessageBox.Show("У вершины нет соседей"); return; }
-                    GetPath(node, internals);
                     _BreadthTravel(node, internals);
                     return;
                 }

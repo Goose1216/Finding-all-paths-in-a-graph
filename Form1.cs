@@ -31,7 +31,8 @@ namespace Program
             graph1.AddEdge(b1, new List<Bush<int>> { f1, g1 });
             graph1.AddEdge(f1, m1);
             //Tests
-            graph1.AddEdge(d1, c1);
+            graph1.AddEdge(g1, f1);
+            graph1.AddEdge(d1, new List<Bush<int>> { a1, c1 });
         }
 
         private void PrintGraph1()
