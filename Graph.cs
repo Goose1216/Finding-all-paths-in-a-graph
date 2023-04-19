@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Program
     internal class Graph<T>
     {
         private List<Bush<T>> Edges;
+        public string res;
 
         public Graph()
         {
@@ -19,18 +21,18 @@ namespace Program
 
         public string GetGraph()
         {
-            string res = String.Empty;
+            string graph = String.Empty;
             foreach(Bush<T> n in Edges)
             {
-                res += n.Name.ToString() + ": ";
+                graph += n.Name.ToString() + ": ";
                 foreach(Bush<T> i in n.Neigh)
                 {
-                    res += i.Name.ToString() + ", ";
+                    graph += i.Name.ToString() + ", ";
                 }
-                res = res[..^2];
-                res += "\n";
+                graph = graph[..^2];
+                graph += "\n";
             }
-            return res;
+            return graph;
         }
 
         public void AddNode(Bush<T> x) 
@@ -58,7 +60,26 @@ namespace Program
             }
             Edges.Add(new Bush<T>(name, edges));
         }
-
+        public void AddEdge(Bush<T> x, List<Bush<T>> List)
+        {
+            bool IsExistX = false;
+            foreach (var node in Edges)
+            {
+               if (node.Name.Equals(x.Name))
+                {
+                    IsExistX = true;
+                    foreach(var vortex in List)
+                    {
+                        node.Neigh.Add(vortex);
+                        if (!Edges.Contains(vortex)) { this.AddNode(vortex); }
+                    }
+                }
+            }
+            if (!IsExistX)
+            {
+                MessageBox.Show("Такой вершины не существует");
+            }
+        }
         public void AddEdge(Bush<T> x, Bush<T> y)
         {
             int cntVortex = 0;
@@ -85,20 +106,17 @@ namespace Program
                 if (!tabu.Contains(vortex.Name))
                 {
                     tabu.Add(vortex.Name);
+                    res += (string.Join("-", tabu)) + "\r\n";
                     _DepthTravel(vortex, tabu);
                     tabu.Remove(vortex.Name);
                 }
-            }
-            if (tabu.Count > 1)
-            {
-                MessageBox.Show(string.Join("-", tabu));
             }
         }
 
         public void DepthTravel(T name) // Обход в глубину
         {
             var tabu = new List<T> { name };
-            string res = String.Empty;
+            res = String.Empty;
             bool IsExists = false;
             foreach (var node in Edges)
             {
@@ -122,20 +140,25 @@ namespace Program
         public void _BreadthTravel(Bush<T> node, List<T> internals)
         {
             internals.Add(node.Name);
-            var externals = new List<Bush<T>>(); // cоседи
-            foreach(Bush<T> vortex in node.Neigh)
+            var externals = new List<Bush<T>>();
+            foreach(var vortex in node.Neigh)
             {
                 if (!internals.Contains(vortex.Name))
                 {
                     externals.Add(vortex);
-                    MessageBox.Show(string.Join("-", internals) + "-" + vortex.Name);
+                    res += String.Join('-', internals) + '-' + vortex.Name + "\r\n";
                 }
             }
-            foreach( Bush<T> vortex in externals) { _BreadthTravel(vortex, internals); }
+            foreach(var vortex in externals)
+            {
+                _BreadthTravel(vortex, internals);
+                internals.Remove(vortex.Name);
+            }
         }
-
+            
         public void BreadthTravel(T name) // обход в ширину
         {
+            res = String.Empty;
             bool IsExists = false;
             var internals = new List<T>(); // пройденные вершины
             foreach(var node in Edges)
@@ -143,8 +166,9 @@ namespace Program
                 if (node.Name.Equals(name))
                 {
                     IsExists = true;
-                    if (node.Neigh.Count == 0) { MessageBox.Show("У вершины нет соседей"); }
+                    if (node.Neigh.Count == 0) { MessageBox.Show("У вершины нет соседей"); return; }
                     _BreadthTravel(node, internals);
+                    return;
                 }
             }
             if (!IsExists) { MessageBox.Show("Такой вершины не существует"); }
