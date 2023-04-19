@@ -30,6 +30,8 @@ namespace Program
             graph1.AddEdge(h1, n1);
             graph1.AddEdge(b1, new List<Bush<int>> { f1, g1 });
             graph1.AddEdge(f1, m1);
+            //Tests
+            graph1.AddEdge(d1, c1);
         }
 
         private void PrintGraph1()
@@ -65,14 +67,28 @@ namespace Program
 
         private void Bredth_Click(object sender, EventArgs e)
         {
-            graph1.BreadthTravel(1);
-            PathsTextBox.Text = graph1.res;
+            try 
+            {
+                graph1.BreadthTravel(int.Parse(VortexBox.Text));
+                PathsTextBox.Text = graph1.res;
+            }
+            catch
+            {
+                MessageBox.Show("Некоректо введённые данные");
+            }
         }
 
         private void Depth_Click(object sender, EventArgs e)
         {
-            graph1.DepthTravel(1);
-            PathsTextBox.Text = graph1.res;
+            try
+            {
+                graph1.DepthTravel(int.Parse(VortexBox.Text));
+                PathsTextBox.Text = graph1.res;
+            }
+            catch
+            {
+                MessageBox.Show("Некоректо введённые данные");
+            }
         }
     }
 }
