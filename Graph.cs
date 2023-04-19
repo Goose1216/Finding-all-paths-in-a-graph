@@ -116,7 +116,7 @@ namespace Program
                     paths_stack.Push(path);
                 }
             }
-            res += String.Join('-', path) + "\r\n";
+            if (path.Count > 1) { res += String.Join('-', path) + "\r\n"; }
             if (nodes_stack.Count > 0)
             {
                 _DepththTravel(nodes_stack.Pop(), paths_stack.Pop());

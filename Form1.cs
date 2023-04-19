@@ -30,7 +30,6 @@ namespace Program
             graph1.AddEdge(h1, n1);
             graph1.AddEdge(b1, new List<Bush<int>> { f1, g1 });
             graph1.AddEdge(f1, m1);
-            //Tests
             graph1.AddEdge(g1, f1);
             graph1.AddEdge(d1, new List<Bush<int>> { a1, c1 });
         }
@@ -38,15 +37,35 @@ namespace Program
         private void PrintGraph1()
         {
             g = CreateGraphics();
-            
+            Brush brush1 = new SolidBrush(Color.PeachPuff);
+            Brush brush2 = new SolidBrush(Color.Black);
+            Pen pen = new Pen(Color.Black);
+            Font font = new Font("Arial", 16);
+            g.FillEllipse(brush1, 550, 300, 50, 50);
+            g.DrawString("1", font, brush2, 565, 310);
+            g.FillEllipse(brush1, 550, 225, 50, 50);
+            g.DrawString("2", font, brush2, 565, 235);
+            g.DrawLine(pen, 575, 275, 575, 300);
+            g.DrawLine(pen, 575, 275, 580, 280);
+            g.DrawLine(pen, 575, 275, 570, 280);
+        }
+        private void PrintGraph2()
+        {
+            g = CreateGraphics();
+
+        }
+        private void PrintGraph3()
+        {
+            g = CreateGraphics();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Bredth.Enabled = true;
             Depth.Enabled = true;
-            g = CreateGraphics();
-            g.DrawEllipse(Pens.Black, 200,200,300,200);
+            var graph = graph1; // גûבמנ דנאפא
+            PrintGraph1();
 
 
         }
