@@ -146,11 +146,11 @@
 
         private Button button1;
         private ComboBox comboBox1;
-        private RichTextBox PathsTextBox;
         private Label label1;
         private Button Bredth;
         private Button Depth;
         private ColorDialog colorDialog1;
         private Panel panel1;
+        public RichTextBox PathsTextBox;
     }
 }

@@ -137,6 +137,22 @@ namespace Program
             }
             
         }
+
+       private void GetPath(Bush<T> node, List<T> internals)
+        {
+            foreach (var vortex in node.Neigh)
+            {
+                if (internals.Count == 0)
+                {
+                    res += node.Name.ToString() + '-' + vortex.Name + "\r\n";
+                }
+                else if (!internals.Contains(vortex.Name))
+                {
+                    res += String.Join('-', internals) + '-' + node.Name + '-' + vortex.Name + "\r\n";
+                }
+            }
+        }
+
         public void _BreadthTravel(Bush<T> node, List<T> internals)
         {
             internals.Add(node.Name);
@@ -146,12 +162,12 @@ namespace Program
                 if (!internals.Contains(vortex.Name))
                 {
                     externals.Add(vortex);
-                    res += String.Join('-', internals) + '-' + vortex.Name + "\r\n";
+                    GetPath(vortex, internals);
                 }
             }
-            foreach(var vortex in externals)
+            foreach (var vortex in externals)
             {
-                _BreadthTravel(vortex, internals);
+               _BreadthTravel(vortex, internals);
                 internals.Remove(vortex.Name);
             }
         }
@@ -167,6 +183,7 @@ namespace Program
                 {
                     IsExists = true;
                     if (node.Neigh.Count == 0) { MessageBox.Show("У вершины нет соседей"); return; }
+                    GetPath(node, internals);
                     _BreadthTravel(node, internals);
                     return;
                 }
