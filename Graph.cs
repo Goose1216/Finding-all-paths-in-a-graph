@@ -12,8 +12,11 @@ namespace Program
     internal class Graph<T>
     {
         private List<Bush<T>> Edges;
-        private Queue<Bush<T>> nodes = new Queue<Bush<T>>();
-        private Queue<List<T>> paths = new Queue<List<T>>(); 
+       
+        private Stack<Bush<T>> nodes_stack = new Stack<Bush<T>>();
+        private Stack<List<T>> paths_stack = new Stack<List<T>>();
+        private Queue<Bush<T>> nodes_queue = new Queue<Bush<T>>();
+        private Queue<List<T>> paths_queue = new Queue<List<T>>(); 
         public string res;
 
         public Graph()
@@ -101,46 +104,44 @@ namespace Program
             if (cntVortex != 2) { MessageBox.Show("Одна из вершин не существует"); }
         }
 
-        public void _DepthTravel(Bush<T> node, List<T> tabu)
+        private void _DepththTravel(Bush<T> node, List<T> internals)
         {
-            foreach(var vortex in node.Neigh)
+            List<T> path = new List<T>(internals);
+            path.Add(node.Name);
+            foreach (var vortex in node.Neigh)
             {
-                if (!tabu.Contains(vortex.Name))
+                if (!path.Contains(vortex.Name))
                 {
-                    tabu.Add(vortex.Name);
-                    res += (string.Join("-", tabu)) + "\r\n";
-                    _DepthTravel(vortex, tabu);
-                    tabu.Remove(vortex.Name);
+                    nodes_stack.Push(vortex);
+                    paths_stack.Push(path);
                 }
+            }
+            res += String.Join('-', path) + "\r\n";
+            if (nodes_stack.Count > 0)
+            {
+                _DepththTravel(nodes_stack.Pop(), paths_stack.Pop());
             }
         }
 
-        public void DepthTravel(T name) // Обход в глубину
+        public void DepthTravel(T name) // обход в ширину
         {
-            var tabu = new List<T> { name };
             res = String.Empty;
             bool IsExists = false;
+            var internals = new List<T>(); // пройденные вершины
             foreach (var node in Edges)
             {
                 if (node.Name.Equals(name))
                 {
                     IsExists = true;
-                    if (node.Neigh.Count == 0)
-                    {
-                        MessageBox.Show("У вершины нет соседей");
-                        return;
-                    }
-                    _DepthTravel(node, tabu);
+                    if (node.Neigh.Count == 0) { MessageBox.Show("У вершины нет соседей"); return; }
+                    _DepththTravel(node, internals);
+                    return;
                 }
             }
-            if (!IsExists)
-            {
-                MessageBox.Show("Такой вершины не существует");
-            }
-            
+            if (!IsExists) { MessageBox.Show("Такой вершины не существует"); }
         }
 
-        public void _BreadthTravel(Bush<T> node, List<T> internals)
+        private void _BreadthTravel(Bush<T> node, List<T> internals)
         {
             List<T> path = new List<T>(internals);
             path.Add(node.Name);
@@ -148,14 +149,14 @@ namespace Program
             {
                 if (!path.Contains(vortex.Name))
                 {
-                    nodes.Enqueue(vortex);
-                    paths.Enqueue(path);
+                    nodes_queue.Enqueue(vortex);
+                    paths_queue.Enqueue(path);
                     res += String.Join('-', path) + '-' + vortex.Name + "\r\n";
                 }
             }
-            while (nodes.Count > 0)
+            if (nodes_queue.Count > 0)
             {
-                _BreadthTravel(nodes.Dequeue(), paths.Dequeue());
+                _BreadthTravel(nodes_queue.Dequeue(), paths_queue.Dequeue());
             }
         }
             
@@ -171,6 +172,7 @@ namespace Program
                     IsExists = true;
                     if (node.Neigh.Count == 0) { MessageBox.Show("У вершины нет соседей"); return; }
                     _BreadthTravel(node, internals);
+                    paths_queue.Clear();
                     return;
                 }
             }
