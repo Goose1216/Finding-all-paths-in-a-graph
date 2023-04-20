@@ -65,6 +65,7 @@
             // PathsTextBox
             // 
             this.PathsTextBox.BackColor = System.Drawing.Color.LightCoral;
+            this.PathsTextBox.Font = new System.Drawing.Font("Segoe UI", 12.11881F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.PathsTextBox.Location = new System.Drawing.Point(1124, 10);
             this.PathsTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PathsTextBox.Name = "PathsTextBox";
@@ -172,8 +173,8 @@
         private Button Depth;
         private ColorDialog colorDialog1;
         private Panel panel1;
-        public RichTextBox PathsTextBox;
         private TextBox VortexBox;
         private Label label2;
+        private RichTextBox PathsTextBox;
     }
 }

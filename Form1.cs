@@ -41,13 +41,73 @@ namespace Program
             Brush brush2 = new SolidBrush(Color.Black);
             Pen pen = new Pen(Color.Black);
             Font font = new Font("Arial", 16);
+
             g.FillEllipse(brush1, 550, 300, 50, 50);
             g.DrawString("1", font, brush2, 565, 310);
+
             g.FillEllipse(brush1, 550, 225, 50, 50);
             g.DrawString("2", font, brush2, 565, 235);
             g.DrawLine(pen, 575, 275, 575, 300);
             g.DrawLine(pen, 575, 275, 580, 280);
             g.DrawLine(pen, 575, 275, 570, 280);
+
+            g.FillEllipse(brush1, 550, 375, 50, 50);
+            g.DrawString("4", font, brush2, 565, 385);
+            g.DrawLine(pen, 580, 350, 580, 375);
+            g.DrawLine(pen, 580, 375, 585, 370);
+            g.DrawLine(pen, 580, 375, 575, 370);
+            g.DrawLine(pen, 570, 350, 570, 375);
+            g.DrawLine(pen, 570, 350, 575, 355);
+            g.DrawLine(pen, 570, 350, 565, 355);
+
+            g.FillEllipse(brush1, 475, 300, 50, 50);
+            g.DrawString("5", font, brush2, 490, 315);
+            g.DrawLine(pen, 525, 325, 550, 325);
+            g.DrawLine(pen, 525, 325, 530, 330);
+            g.DrawLine(pen, 525, 325, 530, 320);
+
+            g.FillEllipse(brush1, 625, 300, 50, 50);
+            g.DrawString("3", font, brush2, 640, 315);
+            g.DrawLine(pen, 600, 325, 625, 325);
+            g.DrawLine(pen, 625, 325, 620, 330);
+            g.DrawLine(pen, 625, 325, 620, 320);
+            g.DrawLine(pen, 600, 400, 650, 350);
+            g.DrawLine(pen, 650, 350, 655, 357);
+            g.DrawLine(pen, 650, 350, 640, 352);
+
+            g.FillEllipse(brush1, 700, 300, 50, 50);
+            g.DrawString("8", font, brush2, 715, 315);
+            g.DrawLine(pen, 675, 325, 700, 325);
+            g.DrawLine(pen, 700, 325, 695, 330);
+            g.DrawLine(pen, 700, 325, 695, 320);
+
+            g.FillEllipse(brush1, 775, 300, 50, 50);
+            g.DrawString("9", font, brush2, 790, 315);
+            g.DrawLine(pen, 750, 325, 775, 325);
+            g.DrawLine(pen, 775, 325, 770, 330);
+            g.DrawLine(pen, 775, 325, 770, 320);
+
+            g.FillEllipse(brush1, 475, 225, 50, 50);
+            g.DrawString("6", font, brush2, 490, 235);
+            g.DrawLine(pen, 550, 250, 525, 250);
+            g.DrawLine(pen, 525, 250, 530, 255);
+            g.DrawLine(pen, 525, 250, 530, 245);
+
+            g.FillEllipse(brush1, 475, 150, 50, 50);
+            g.DrawString("10", font, brush2, 485, 160);
+            g.DrawLine(pen, 500, 225, 500, 200);
+            g.DrawLine(pen, 500, 200, 505, 205);
+            g.DrawLine(pen, 500, 200, 495, 205);
+
+            g.FillEllipse(brush1, 550, 150, 50, 50);
+            g.DrawString("7", font, brush2, 565, 160);
+            g.DrawLine(pen, 575, 225, 575, 200);
+            g.DrawLine(pen, 575, 200, 580, 205);
+            g.DrawLine(pen, 575, 200, 570, 205);
+            g.DrawLine(pen, 550, 175, 515, 230);
+            g.DrawLine(pen, 515, 230, 525, 225);
+            g.DrawLine(pen, 515, 230, 515, 220);
+
         }
         private void PrintGraph2()
         {
@@ -64,7 +124,7 @@ namespace Program
         {
             Bredth.Enabled = true;
             Depth.Enabled = true;
-            var graph = graph1; // גûבמנ דנאפא
+            // גûבמנ דנאפא
             PrintGraph1();
 
 
