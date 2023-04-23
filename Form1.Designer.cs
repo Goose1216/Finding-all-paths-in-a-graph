@@ -128,10 +128,12 @@
             // 
             // VortexBox
             // 
+            this.VortexBox.Font = new System.Drawing.Font("Segoe UI", 12.11881F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.VortexBox.Location = new System.Drawing.Point(379, 57);
             this.VortexBox.Name = "VortexBox";
-            this.VortexBox.Size = new System.Drawing.Size(242, 25);
+            this.VortexBox.Size = new System.Drawing.Size(242, 30);
             this.VortexBox.TabIndex = 8;
+            this.VortexBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -167,7 +169,6 @@
         #endregion
 
         private Button button1;
-        private ComboBox comboBox1;
         private Label label1;
         private Button Bredth;
         private Button Depth;
@@ -176,5 +177,6 @@
         private TextBox VortexBox;
         private Label label2;
         private RichTextBox PathsTextBox;
+        private ComboBox comboBox1;
     }
 }
